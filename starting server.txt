@@ -1,0 +1,3 @@
+1. Open terminal
+2. Type “cd /Users/devonsingh/Desktop/Devon/MHCID/285/reversi”
+3. Type “node server.js”
