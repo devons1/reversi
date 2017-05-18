@@ -6,6 +6,17 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
+    <title>Enter your username for Reversi</title>
+
+    <script>
+        function submitForm() {
+          var username = $('#username').val();
+          window.location.href='lobby.html?username='+username;
+
+        }
+
+    </script>
+
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
   	
@@ -35,11 +46,27 @@
      		</div>
      	</div>
      	
+
+
+
+
       <div class="row">
         <div class="col">
-          <p class="white-text">Enter your name...</p>
+          <form onsubmit='submitForm(); return false;' class='form-inline justify-content-center'>
+            <div class='form-group'>
+              <label for='username' class='col-form-label sr-only'>Enter a username</label>
+              <input class='form-control' type='text' value='' id='username' placeholder='Enter your username' />
+            </div>
+          </form>
         </div>
       </div>
+
+
+      <div class="row">
+        <div class="col">
+          <button type='submit' class='btn btn-lg btn-outline-success'>Done</button>
+        </div>        
+      </div>  
 
       <div class="row">
         <div class="col">

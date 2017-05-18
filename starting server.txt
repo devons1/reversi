@@ -1,3 +1,5 @@
+Running Reversi Locally
+
 1. Open terminal
 2. Type “cd /Users/devonsingh/Desktop/Devon/MHCID/285/reversi”
 3. Type “node server.js”
@@ -6,8 +8,9 @@
 
 —
 
-Updating Site
+Running Reversi Via Web
 
-1. Save file
+1. Save .html files
 2. In Source Tree, Commit and Push changes
 3. In Heroic, Deploy code
+4. Visit website
