@@ -18,4 +18,4 @@ if('undefined' == typeof username || !username)
 {
 	username = 'Anonymous_'+Math.floor(Math.random()*100);
 }
-$('#messages').append('<h4>' + username +'</h4>');
+$('#messages').append('<h4>' + username.fontcolor("lightblue") +'</h4>');
