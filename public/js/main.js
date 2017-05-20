@@ -19,3 +19,10 @@ if('undefined' == typeof username || !username)
 	username = 'Anonymous_'+Math.floor(Math.random()*100);
 }
 $('#messages').append('<h4>' + username.fontcolor("lightblue") +'</h4>');
+
+/* Connect to the socket server */
+var socket = io.connect();
+
+socket.on('log', function(array){
+	console.log.apply(console,array);
+});
