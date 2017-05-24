@@ -35,6 +35,8 @@ socket.on('log',function(array){
 });
 
 
+/***********/
+
 /* C - What to do when server responds when someone joined a room */
 socket.on('join_room_response',function(payload){
 	if(payload.result == 'fail'){
@@ -73,7 +75,7 @@ socket.on('join_room_response',function(payload){
 			nodeA.hide();
 			nodeB.hide();
 			nodeC.hide();
-			$('#players').append(nodeA, nodeB, nodeC);
+			$('#players').append(nodeA,nodeB,nodeC);
 			nodeA.slideDown(1000);
 			nodeB.slideDown(1000);
 			nodeC.slideDown(1000);
@@ -129,7 +131,7 @@ socket.on('player_disconnected',function(payload){
 });
 
 
-
+/***********/
 
 
 
