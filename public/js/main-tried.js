@@ -20,38 +20,37 @@ if('undefined' == typeof username || !username){
 	username = 'Anonymous_'+Math.floor(Math.random()*100);
 }
 
-/* A - 10:28 */
+/*1*/
 var chat_room = getURLParameters('game_id');
 if('undefined' == typeof chat_room || !chat_room){
 	chat_room = 'lobby';
 }
 
+
 /* Connect to the socket server */
 var socket = io.connect();
 
-/* B - What to do when server sends me a long message */
+/* What to do when server sends me a long message */
 socket.on('log',function(array){
 	console.log.apply(console,array);
 });
 
-
-/* C - What to do when server responds when someone joined a room */
+/* What to do when server responds when someone joined a room */
 socket.on('join_room_response',function(payload){
 	if(payload.result == 'fail'){
 		alert(payload.message);
 		return;
 	}
 
-	/* D - If we are being notified that we joined the room, then ignore it */
+	/* If we are being notified that we joined the room, then ignore it */
 	if(payload.socket_id == socket.id);{
 			return;
 	}
 
-
-	/* F - If someone joined, then add new row to the lobby table */
+	/* If someone joined, then add new row to the lobby table */
 	var dom_elements = $('.socket_' + payload.socket_id);
 
-		/* G - If we don't already have an entry for this person */
+		/* If we don't already have an entry for this person */
 		if (dom_elements.length == 0) {
 			var nodeA = $('<div></div>');
 			nodeA.addClass('socket_' + payload.socket_id);
@@ -86,47 +85,53 @@ socket.on('join_room_response',function(payload){
 			dom_elements.slideDown(1000);
 		}
 
-	/* E - Manage the message that a new player has joined */
-	var newHTML = '<p>' + payload.username + ' joined!</p>';
+
+	/* Manage the message that a new player has joined */
+	var newHTML = '<p><font color="lime">+ '+payload.username+' joined!</font></p>';
 	var newNode = $(newHTML);
 	newNode.hide();
-	$('#messages').append(newNode);
+	$('messages').append(newNode);
 	newNode.slideDown(1000);
 
 });
 
 
-/***********/
 
-/* I - What to do when server says that someone has left the room */
+
+/* What to do when the servery says someone has left the room */
 socket.on('player_disconnected',function(payload){
 	if(payload.result == 'fail'){
 		alert(payload.message);
 		return;
 	}
 
-	/* J - If we are being notified that we left the room, then ignore it */
+	/* If we are being notified that we left the room, then ignore it */
 	if(payload.socket_id == socket.id);{
 			return;
 	}
 
-
-	/* K - If someone left the room, animate out their content */
+	/* If someone left the room, then animate out all of their content */
 	var dom_elements = $('.socket_' + payload.socket_id);
 
-		/* If something exist */
+		/* If something exists */
 		if (dom_elements.length != 0) {
 			dom_elements.slideUp(1000);
 		}
 
-	/* L - Manage the message that a new player has left the room */
-	var newHTML = '<p>' + payload.username + ' has left!</p>';
+	/* Manage the message that a player has left */
+	var newHTML = '<p><font color="lime">+ '+payload.username+' left!</font></p>';
 	var newNode = $(newHTML);
 	newNode.hide();
-	$('#messages').append(newNode);
+	$('messages').append(newNode);
 	newNode.slideDown(1000);
 
+
 });
+
+
+
+
+
 
 
 
@@ -138,7 +143,7 @@ socket.on('send_message_response',function(payload){
 		alert(payload.message);
 		return;
 	}
-	$('#messages').append('<p><b>'+payload.username+' says:</b> '+payload.message+'</p>');
+	$('#messages').append('<p><font color="sky blue"><b>'+payload.username+' says:</font></b> '+payload.message.fontcolor("white")+'</p>');
 });
 
 
@@ -151,15 +156,15 @@ function send_message(){
 		console.log('*** Client Log Message: \'send_message\' payload: '+JSON.stringify(payload));
 	socket.emit('send_message',payload);
 }	
+	
 
 
-/* H - 23:52 */
 function makeInviteButton(){
 	var newHTML = '<button type = \'button\' class=\'btn btn-outline-primary\'>Invite </button>';
 	var newNode = $(newHTML);
 	return(newNode);
 }
-	
+
 
 $(function(){
 	var payload = {};
