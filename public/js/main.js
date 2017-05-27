@@ -84,6 +84,7 @@ socket.on('join_room_response',function(payload){
 	dom_elements.slideDown(1000);
 }
 
+
 	
 	/* Manage the message that a new player has joined */
 	var newHTML = '<p><font color="lime"><b>'+payload.username+'</b> entered the lobby</font></p>';
