@@ -62,7 +62,7 @@ socket.on('join_room_response',function(payload){
 		nodeA.addClass('w-100');
 	
 		nodeB.addClass('col-6 text-right');
-		nodeB.append('<h4>'+payload.username+'</h4>');
+		nodeB.append('<h4><font color="lime">'+payload.username+'</font></h4>');
 	
 		nodeC.addClass('col-6 text-left');
 		var buttonC = makeInviteButton();
@@ -116,7 +116,7 @@ socket.on('player_disconnected',function(payload){
 	}
 	
 	/* Manage the message that a player has left */
-	var newHTML = '<p><font color="red"><b>'+payload.username+'</b> entered the lobby</font></p>';
+	var newHTML = '<p><font color="red"><b>'+payload.username+'</b> left the lobby</font></p>';
 	var newNode = $(newHTML);
 	newNode.hide();
 	$('#messages').append(newNode);
@@ -128,7 +128,7 @@ socket.on('send_message_response',function(payload){
 		alert(payload.message);
 		return;
 	}
-	$('#messages').append('<p><b>'+payload.username+' says:</b> '+payload.message+'</p>');
+	$('#messages').append('<p><font color="light blue"><b>'+payload.username+' says:</b></font> <font color="white">'+payload.message+'</font></p>');
 });
 
 
