@@ -116,7 +116,7 @@ socket.on('player_disconnected',function(payload){
 	}
 	
 	/* Manage the message that a player has left */
-	var newHTML = '<p>'+payload.username+' has left the lobby</p>';
+	var newHTML = '<p><font color="red"><b>'+payload.username+'</b> entered the lobby</font></p>';
 	var newNode = $(newHTML);
 	newNode.hide();
 	$('#messages').append(newNode);
