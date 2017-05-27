@@ -128,7 +128,7 @@ socket.on('send_message_response',function(payload){
 		alert(payload.message);
 		return;
 	}
-	$('#messages').append('<p><font color="light blue"><b>'+payload.username+' says:</b></font> <font color="white">'+payload.message+'</font></p>');
+	$('#messages').append('<p><font color="sky blue"><b>'+payload.username+':</b></font> <font color="white">'+payload.message+'</font></p>');
 });
 
 
