@@ -133,7 +133,7 @@ function invite(who) {
 	socket.emit('invite',payload);
 }
 
-
+/* Create Invited button */
 socket.on('invite_response',function(payload){
 	if(payload.result == 'fail'){
 		alert(payload.message);
@@ -145,6 +145,7 @@ socket.on('invite_response',function(payload){
 });
 
 
+/* Create Play button */
 socket.on('invited',function(payload){
 	if(payload.result == 'fail'){
 		alert(payload.message);
