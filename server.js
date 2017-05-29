@@ -222,7 +222,7 @@ io.sockets.on('connection', function (socket) {
 		/* Check that the message can be traced to a username */
 		var username = players[socket.id].username;
 		if(('undefined' === typeof username) || !username) {
-			var error_message = 'invite can\' identify who sent the message';
+			var error_message = 'invite can\'t identify who sent the message';
 			log(error_message);
 			socket.emit('invite_response',   { 
 													result: 'fail',
