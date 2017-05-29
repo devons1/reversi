@@ -194,7 +194,7 @@ function makeInviteButton(socket_id){
 
 
 function makeInvitedButton(){
-		var newHTML = '<button type=\'button\' class=\'btn btn-outline-success\'>Invited</button>';
+		var newHTML = '<button type=\'button\' class=\'btn btn-outline-primary\'>Invited</button>';
 		var newNode = $(newHTML);
 		return(newNode);	
 }
@@ -207,7 +207,7 @@ function makePlayButton(){
 
 
 function makeEngageButton(){
-		var newHTML = '<button type=\'button\' class=\'btn btn-outline-success\'>Engaged</button>';
+		var newHTML = '<button type=\'button\' class=\'btn btn-outline-danger\'>Engaged</button>';
 		var newNode = $(newHTML);
 		return(newNode);	
 }
