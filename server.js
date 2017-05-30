@@ -349,7 +349,7 @@ io.sockets.on('connection', function (socket) {
 		/* Tell invitee that they have been invited */
 		var success_data = {
 									result: 'success',
-									socket_id: requested_user
+									socket_id: socket.id
 							};
 		
 		socket.to(requested_user).emit('invited', success_data);
