@@ -124,7 +124,7 @@ socket.on('player_disconnected',function(payload){
 });
 
 
-/*Invite function*/
+/* Invite function*/
 function invite(who) {
 	var payload ={};
 	payload.requested_user = who;
@@ -133,19 +133,19 @@ function invite(who) {
 	socket.emit('invite',payload);
 }
 
-/* Create Invited button */
+/* Response after sending an invite message to server */
 socket.on('invite_response',function(payload){
 	if(payload.result == 'fail'){
 		alert(payload.message);
 		return;
 	}
 
-	var newNode = makeInvitedButton();
+	var newNode = makeInvitedButton(payload.socket_id);
 	$('.socket_' + payload.socket_id + ' button').replaceWith(newNode);
 });
 
 
-/* Create Play button */
+/* Response notification that we have been invited */
 socket.on('invited',function(payload){
 	if(payload.result == 'fail'){
 		alert(payload.message);
@@ -155,6 +155,45 @@ socket.on('invited',function(payload){
 	var newNode = makePlayButton();
 	$('.socket_' + payload.socket_id + ' button').replaceWith(newNode);
 });
+
+
+
+
+
+
+/* Uninvite function*/
+function uninvite(who) {
+	var payload ={};
+	payload.requested_user = who;
+
+	console.log ('*** Client Message: \'uninvite\' payload: ' + JSON.stringify(payload));
+	socket.emit('uninvite',payload);
+}
+
+/* Response after sending an uninvite message to server */
+socket.on('uninvite_response',function(payload){
+	if(payload.result == 'fail'){
+		alert(payload.message);
+		return;
+	}
+
+	var newNode = makeInviteButton(payload.socket_id);
+	$('.socket_' + payload.socket_id + ' button').replaceWith(newNode);
+});
+
+
+/* Response notification that we have been uninvited */
+socket.on('uninvited',function(payload){
+	if(payload.result == 'fail'){
+		alert(payload.message);
+		return;
+	}
+
+	var newNode = makeInviteButton(payload.socket_id);
+	$('.socket_' + payload.socket_id + ' button').replaceWith(newNode);
+});
+
+
 
 
 
@@ -193,9 +232,13 @@ function makeInviteButton(socket_id){
 }
 
 
-function makeInvitedButton(){
+function makeInvitedButton(socket_id){
 		var newHTML = '<button type=\'button\' class=\'btn btn-outline-primary\'>Invited</button>';
 		var newNode = $(newHTML);
+		newNode.click(function(){
+			uninvite(socket_id);
+		});
+
 		return(newNode);	
 }
 
