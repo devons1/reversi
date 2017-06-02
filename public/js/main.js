@@ -211,7 +211,7 @@ function game_start(who) {
 }
 
 /* Handle a notification that we have been engaged */
-socket.on('game_start',function(payload){
+socket.on('game_start_response',function(payload){
 	if(payload.result == 'fail'){
 		alert(payload.message);
 		return;
@@ -224,6 +224,11 @@ socket.on('game_start',function(payload){
 	window.location.href = 'game.html?username=' + username + '&game_id=' + payload.game_id;
 
 });
+
+
+
+
+
 
 
 
@@ -279,14 +284,15 @@ function makeInvitedButton(socket_id){
 		return(newNode);	
 }
 
+
+
 function makePlayButton(socket_id){
-		var newHTML = '<button type=\'button\' class=\'btn btn-outline-success\'>Play</button>';
-		var newNode = $(newHTML);
-		newNode.click(function(){
-			game_start(socket_id);
-		});
-		
-		return(newNode);	
+	var newHTML = '<button type=\'button\' class=\'btn btn-outline-success\'>Play</button>';
+	var newNode = $(newHTML);
+	newNode.click(function(){
+		game_start(socket_id);
+	});	
+	return(newNode);
 }
 
 
