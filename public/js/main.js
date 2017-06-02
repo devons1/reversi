@@ -79,9 +79,10 @@ socket.on('join_room_response',function(payload){
 		nodeC.slideDown(1000);
 	}
 	else{
-	var buttonC = makeInviteButton(payload.socket_id);
-	$('.socket_'+payload.socket_id+' button').replaceWith(buttonC);
-	dom_elements.slideDown(1000);
+		uninvite(payload.socket_id);
+		var buttonC = makeInviteButton(payload.socket_id);
+		$('.socket_'+payload.socket_id+' button').replaceWith(buttonC);
+		dom_elements.slideDown(1000);
 }
 
 
@@ -152,7 +153,7 @@ socket.on('invited',function(payload){
 		return;
 	}
 
-	var newNode = makePlayButton();
+	var newNode = makePlayButton(payload.socket_id);
 	$('.socket_' + payload.socket_id + ' button').replaceWith(newNode);
 });
 
@@ -200,14 +201,31 @@ socket.on('uninvited',function(payload){
 
 
 
+/* Game start message to server function*/
+function game_start(who) {
+	var payload ={};
+	payload.requested_user = who;
 
-socket.on('send_message_response',function(payload){
+	console.log ('*** Client Message: \'game_start\' payload: ' + JSON.stringify(payload));
+	socket.emit('game_start',payload);
+}
+
+/* Handle a notification that we have been engaged */
+socket.on('game_start',function(payload){
 	if(payload.result == 'fail'){
 		alert(payload.message);
 		return;
 	}
-	$('#messages').append('<p><font color="sky blue"><b>'+payload.username+':</b></font> <font color="white">'+payload.message+'</font></p>');
+
+	var newNode = makeEngagedButton(payload.socket_id);
+	$('.socket_' + payload.socket_id + ' button').replaceWith(newNode);
+
+	/* Jump to a new page */
+	window.location.href = 'game.html?username=' + username + '&game_id=' + payload.game_id;
+
 });
+
+
 
 
 
@@ -215,11 +233,30 @@ socket.on('send_message_response',function(payload){
 function send_message(){
 	var payload = {};
 	payload.room = chat_room;
-	payload.username = username;
 	payload.message = $('#send_message_holder').val();
 		console.log('*** Client Log Message: \'send_message\' payload: '+JSON.stringify(payload));
 	socket.emit('send_message',payload);
 }	
+
+
+
+
+socket.on('send_message_response',function(payload){
+	if(payload.result == 'fail'){
+		alert(payload.message);
+		return;
+	}
+
+	var newHTML = '<p><font color="sky blue"><b>'+payload.username+':</b></font> <font color="white">'+payload.message+'</font></p>';
+	var newNode = $(newHTML);
+	newNode.hide();
+	$('#messages').append(newNode);
+	newNode.slideDown(1000);
+});
+
+
+
+
 	
 function makeInviteButton(socket_id){
 		var newHTML = '<button type=\'button\' class=\'btn btn-outline-success\'>Invite</button>';
@@ -242,14 +279,18 @@ function makeInvitedButton(socket_id){
 		return(newNode);	
 }
 
-function makePlayButton(){
+function makePlayButton(socket_id){
 		var newHTML = '<button type=\'button\' class=\'btn btn-outline-success\'>Play</button>';
 		var newNode = $(newHTML);
+		newNode.click(function(){
+			game_start(socket_id);
+		});
+		
 		return(newNode);	
 }
 
 
-function makeEngageButton(){
+function makeEngagedButton(){
 		var newHTML = '<button type=\'button\' class=\'btn btn-outline-danger\'>Engaged</button>';
 		var newNode = $(newHTML);
 		return(newNode);	
