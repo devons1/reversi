@@ -393,7 +393,6 @@ socket.on('game_update',function(payload){
 				}
 		}
 
-
 		old_board = board;
 
 });

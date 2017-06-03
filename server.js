@@ -624,7 +624,7 @@ function send_game_update(socket, game_id, message){
 						
 	io.in(game_id).emit('game_update',success_data);
 	
-	/* Check to see if the game is over  */
+	/* Check to see if the game is over */
 	
 
 }
