@@ -359,34 +359,34 @@ socket.on('game_update',function(payload){
 				/* If a board space has changed */
 				if(old_board[row][column] != board [row][column]){
 					if(old_board[row][column] == '?' && board[row][column] == ' '){
-						$('#'+row+'_'+column).html('<img src="assets/images/EmptySquare.png" alt="empty square"/>');
+						$('#'+row+'_'+column).html('<img src="assets/images/empty.gif" alt="empty square"/>');
 						}
 					else if(old_board[row][column] == '?' && board[row][column] == 'w'){
-						$('#'+row+'_'+column).html('<img src="assets/images/Reversi-flip-T2L.gif" alt="light square"/>');	
+						$('#'+row+'_'+column).html('<img src="assets/images/empty-to-white.gif" alt="white square"/>');	
 						}
 					else if(old_board[row][column] == '?' && board[row][column] == 'b'){
-						$('#'+row+'_'+column).html('<img src="assets/images/Reversi-flip-T2D.gif" alt="dark square"/>');	
+						$('#'+row+'_'+column).html('<img src="assets/images/empty-to-black.gif" alt="black square"/>');	
 						}
 					else if(old_board[row][column] == ' ' && board[row][column] == 'w'){
-						$('#'+row+'_'+column).html('<img src="assets/images/Reversi-flip-T2L.gif" alt="light square"/>');	
+						$('#'+row+'_'+column).html('<img src="assets/images/empty-to-white.gif" alt="white square"/>');		
 						}
 					else if(old_board[row][column] == ' ' && board[row][column] == 'b'){
-						$('#'+row+'_'+column).html('<img src="assets/images/Reversi-flip-T2D.gif" alt="dark square"/>');	
+						$('#'+row+'_'+column).html('<img src="assets/images/empty-to-black.gif" alt="black square"/>');		
 						}
 					else if(old_board[row][column] == 'w' && board[row][column] == ' '){
-						$('#'+row+'_'+column).html('<img src="assets/images/Reversi-flip-L2T.gif" alt="empty square"/>');	
+						$('#'+row+'_'+column).html('<img src="assets/images/empty.gif" alt="empty square"/>');	
 						}
 					else if(old_board[row][column] == 'b' && board[row][column] == ' '){
-						$('#'+row+'_'+column).html('<img src="assets/images/Reversi-flip-D2T.gif" alt="empty square"/>');	
+						$('#'+row+'_'+column).html('<img src="assets/images/empty.gif" alt="empty square"/>');	
 						}
 					else if(old_board[row][column] == 'w' && board[row][column] == 'b'){
-						$('#'+row+'_'+column).html('<img src="assets/images/Reversi-flip-L2D.gif" alt="dark square"/>');	
+						$('#'+row+'_'+column).html('<img src="assets/images/empty-to-black.gif" alt="black square"/>');	
 						}
 					else if(old_board[row][column] == 'b' && board[row][column] == 'w'){
-						$('#'+row+'_'+column).html('<img src="assets/images/Reversi-flip-D2L.gif" alt="light square"/>');	
+						$('#'+row+'_'+column).html('<img src="assets/images/empty-to-white.gif" alt="white square"/>');	
 						}
 					else{
-						$('#'+row+'_'+column).html('<img src="assets/images/error.png" alt="light square"/>');	
+						$('#'+row+'_'+column).html('<img src="assets/images/error.gif" alt="error"/>');	
 						}
 							
 					}
