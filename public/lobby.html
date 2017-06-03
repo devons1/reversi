@@ -82,23 +82,24 @@
 
 
 
-    <div class='row'>
-        <div class='col'>
-          <h3 class='white-text'>Messages</h3>
-          <form class='form-inline' onsubmit='send_message(); return false;'>
-            <label form='send_message_holder' class='col-form-label sr-only'>Enter your chat message</label>
-            <input class='form-control mx-auto' type='text' value='' id='send_message_holder' placeholder='Enter your chat message'/>
-            <button type='submit'class='btn btn-lg btn-outline-info'>Send</button>
-          </form>
-        </div>
-     </div>
-     
-     <div class='row'>
-        <div class='col'>
-          <div id='messages'>
+      <div class='row'>
+          <div class='col'>
+            <h3 class='white-text'>Messages</h3>
+            <form class='form-inline' onsubmit='send_message(); return false;'>
+              <label form='send_message_holder' class='col-form-label sr-only'>Enter your chat message</label>
+              <input class='form-control mx-auto w-90' type='text' value='' id='send_message_holder' placeholder='Enter your chat message'/>
+              <button type='submit'class='btn btn-lg btn-outline-info'>Send</button>
+              <a href="name.html" class="btn btn-lg btn-outline-warning">Back</a>
+            </form>
           </div>
-        </div>
-    </div>
+       </div>
+       
+       <div class='row'>
+          <div class='col'>
+            <div id='messages'>
+            </div>
+          </div>
+      </div>
      
 
 
