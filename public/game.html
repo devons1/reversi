@@ -14,13 +14,39 @@
     <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css' integrity='sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ' crossorigin='anonymous'>
   	
   	<style>
-      body{
-        background-color: darkgreen;
+
+      .game-background{
+        background-color: #d6d6d6;
+        padding-top: 25px;
+        padding-bottom: 25px;
       }
 
-            .white-text{
+      .message-background{
+        background-color: black;
+        padding-top: 25px;
+        padding-bottom: 25px;
+      }
+
+
+      .white-text{
         color: white;
       }
+
+      #game_board{
+        margin:auto;
+        border-style: solid;
+        border-width: 10px
+        border-color: rgb(100,100,100);
+        }
+        
+       #game_board td{
+        padding:5px;
+        border-style: solid;
+        border-width: 1px;
+        border-color: rgb(50,50,50);
+        }
+
+
 
     </style>
   
@@ -29,7 +55,7 @@
 
 
   <body>
-    <div class='container-fluid text-center'>
+    <div class='container-fluid text-center game-background'>
    
 
 
@@ -146,12 +172,10 @@
         </div>
       </div>
 
-     	
-      
-   
+    </div>
 
-      <hr>
 
+    <div class='container-fluid text-center message-background'>
       <div class='row'>
         <div class='col'>
           <h3 class='white-text'>Messages</h3>
@@ -161,7 +185,6 @@
             <input class='form-control' type='text' value='' id='send_message_holder' placeholder='Enter your chat message'/>
             </div>
               <button type='submit' class='btn btn-lg btn-outline-info'>Send</button>
-              <a href="name.html" class="btn btn-lg btn-outline-warning">Back</a>
           </form>
         </div>
       </div>
@@ -174,11 +197,7 @@
             </div>
           </div>
       </div>
-     
 
-
-
-   
     </div>
 
     <!-- jQuery first, then Tether, then Bootstrap JS. -->
