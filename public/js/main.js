@@ -315,3 +315,88 @@ $(function(){
 	console.log('*** Client Log Message: \'join_room\' payload: '+JSON.stringify(payload));
 	socket.emit('join_room',payload);
 });
+
+
+
+
+
+
+var old_board = [
+					['?','?','?','?','?','?','?','?'],
+					['?','?','?','?','?','?','?','?'],
+					['?','?','?','?','?','?','?','?'],
+					['?','?','?','?','?','?','?','?'],
+					['?','?','?','?','?','?','?','?'],
+					['?','?','?','?','?','?','?','?'],
+					['?','?','?','?','?','?','?','?'],
+					['?','?','?','?','?','?','?','?']
+				]
+
+socket.on('game_update',function(payload){
+	
+	console.log('*** Client Log Message: \'game_update\' \n\tpayload: '+JSON.stringify(payload));
+	/* Check for a good board update  */
+	if(payload.result == 'fail'){
+		console.log(payload.message);
+		window.location.href = 'lobby?username='+username;
+		return;
+		}
+		
+	/* Check for a good board in the payload  */
+	var board = payload.game.board;
+	if('undefined' == typeof board || !board){
+		console.log('Internal error: received a malformed board update from the server');
+		return;
+		}
+		
+	/* Update my color */
+	
+	/* Animate changes to the board  */
+	
+	var row,column;
+	for(row = 0; row < 8 ; row++){
+			for(column = 0; column < 8 ; column++){
+				/* If a board space has changed */
+				if(old_board[row][column] != board [row][column]){
+					if(old_board[row][column] == '?' && board[row][column] == ' '){
+						$('#'+row+'_'+column).html('<img src="assets/images/EmptySquare.png" alt="empty square"/>');
+						}
+					else if(old_board[row][column] == '?' && board[row][column] == 'w'){
+						$('#'+row+'_'+column).html('<img src="assets/images/Reversi-flip-T2L.gif" alt="light square"/>');	
+						}
+					else if(old_board[row][column] == '?' && board[row][column] == 'b'){
+						$('#'+row+'_'+column).html('<img src="assets/images/Reversi-flip-T2D.gif" alt="dark square"/>');	
+						}
+					else if(old_board[row][column] == ' ' && board[row][column] == 'w'){
+						$('#'+row+'_'+column).html('<img src="assets/images/Reversi-flip-T2L.gif" alt="light square"/>');	
+						}
+					else if(old_board[row][column] == ' ' && board[row][column] == 'b'){
+						$('#'+row+'_'+column).html('<img src="assets/images/Reversi-flip-T2D.gif" alt="dark square"/>');	
+						}
+					else if(old_board[row][column] == 'w' && board[row][column] == ' '){
+						$('#'+row+'_'+column).html('<img src="assets/images/Reversi-flip-L2T.gif" alt="empty square"/>');	
+						}
+					else if(old_board[row][column] == 'b' && board[row][column] == ' '){
+						$('#'+row+'_'+column).html('<img src="assets/images/Reversi-flip-D2T.gif" alt="empty square"/>');	
+						}
+					else if(old_board[row][column] == 'w' && board[row][column] == 'b'){
+						$('#'+row+'_'+column).html('<img src="assets/images/Reversi-flip-L2D.gif" alt="dark square"/>');	
+						}
+					else if(old_board[row][column] == 'b' && board[row][column] == 'w'){
+						$('#'+row+'_'+column).html('<img src="assets/images/Reversi-flip-D2L.gif" alt="light square"/>');	
+						}
+					else{
+						$('#'+row+'_'+column).html('<img src="assets/images/error.png" alt="light square"/>');	
+						}
+							
+					}
+				}
+		}
+
+
+		old_board = board;
+
+});
+
+
+
