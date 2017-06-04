@@ -88,10 +88,10 @@ socket.on('join_room_response',function(payload){
 
 	
 	/* Manage the message that a new player has joined */
-	var newHTML = '<p><font color="lime"><b>'+payload.username+'</b> entered the lobby</font></p>';
+	var newHTML = '<p><font color="lime"><b>'+payload.username+'</b> entered the room</font></p>';
 	var newNode = $(newHTML);
 	newNode.hide();
-	$('#messages').append(newNode);
+	$('#messages').prepend(newNode);
 	newNode.slideDown(1000);
 });
 
@@ -117,10 +117,10 @@ socket.on('player_disconnected',function(payload){
 	}
 	
 	/* Manage the message that a player has left */
-	var newHTML = '<p><font color="red"><b>'+payload.username+'</b> left the lobby</font></p>';
+	var newHTML = '<p><font color="red"><b>'+payload.username+'</b> left the room</font></p>';
 	var newNode = $(newHTML);
 	newNode.hide();
-	$('#messages').append(newNode);
+	$('#messages').prepend(newNode);
 	newNode.slideDown(1000);
 });
 
@@ -241,6 +241,7 @@ function send_message(){
 	payload.message = $('#send_message_holder').val();
 		console.log('*** Client Log Message: \'send_message\' payload: '+JSON.stringify(payload));
 	socket.emit('send_message',payload);
+	$('#send_message_holder').val();
 }	
 
 
@@ -255,7 +256,7 @@ socket.on('send_message_response',function(payload){
 	var newHTML = '<p><font color="sky blue"><b>'+payload.username+':</b></font> <font color="white">'+payload.message+'</font></p>';
 	var newNode = $(newHTML);
 	newNode.hide();
-	$('#messages').append(newNode);
+	$('#messages').prepend(newNode);
 	newNode.slideDown(1000);
 });
 
