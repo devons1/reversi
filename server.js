@@ -751,8 +751,57 @@ function send_game_update(socket, game_id, message){
 		
 	
 	/* Make sure that only 2 people are in the game room  */
-	
+	var roomObject;
+	var numClients;
+	do{
+		roomObject = io.sockets.adapter.rooms[game_id];
+		numClients = roomObject.length;
+		if(numClients > 2){
+			console.log('Too many clients in room: '+game_id+' #: '+numClients);
+			if(games[game_id].player_white.socket == roomObject.sockets[0]){
+				games[game_id].player_white.socket = '';
+				games[game_id].player_white.username = '';
+			}
+			if(games[game_id].player_black.socket == roomObject.sockets[0]){
+				games[game_id].player_black.socket = '';
+				games[game_id].player_black.username = '';
+			} 
+			/* Kick one of the extra people out */
+			var sacrifice = Object.keys(roomObject.sockets)[0];
+			io.of('/').connected[sacrifice].leave(game_id);
+		 }
+	}
+	while((numClients-1) > 2);
+
+
 	/* Assign this socket a color */
+	/* If the current player isn't assigned a color */
+	if((games[game_id].player_white.socket != socket.id) && (games[game_id].player_black.socket != socket.id)){
+		console.log('Player isn\'t assigned a color: '+socket.id);
+		/* and if there isn't a color to give them */
+		if((games[game_id].player_black.socket != '') && (games[game_id].player_white.socket != '')){
+			games[game_id].player_white.socket = '';
+			games[game_id].player_white.username = '';
+			games[game_id].player_black.socket = '';
+			games[game_id].player_black.username = '';
+		}
+	}
+
+	/* Assign color to the players if not already done*/
+	if(games[game_id].player_white.socket == ''){
+		if(games[game_id].player_black.socket != socket.id){
+			games[game_id].player_white.socket = socket.id;
+			games[game_id].player_white.username = players[socket.id].username;
+		}		
+	}
+	if(games[game_id].player_black.socket == ''){
+		if(games[game_id].player_white.socket != socket.id){
+			games[game_id].player_black.socket = socket.id;
+			games[game_id].player_black.username = players[socket.id].username;
+		}		
+	}	
+
+
 	
 	/* Send the game update */
 	var success_data = {
