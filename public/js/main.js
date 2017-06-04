@@ -241,7 +241,7 @@ function send_message(){
 	payload.message = $('#send_message_holder').val();
 		console.log('*** Client Log Message: \'send_message\' payload: '+JSON.stringify(payload));
 	socket.emit('send_message',payload);
-	$('#send_message_holder').val();
+	payload.message = $('#send_message_holder').val();
 }	
 
 
