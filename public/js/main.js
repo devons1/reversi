@@ -392,38 +392,50 @@ socket.on('game_update',function(payload){
 				if(old_board[row][column] != board [row][column]){
 					if(old_board[row][column] == '?' && board[row][column] == ' '){
 						$('#'+row+'_'+column).html('<img src="assets/images/empty.gif" alt="empty square"/>');
-						}
+					}
+					
 					else if(old_board[row][column] == '?' && board[row][column] == 'w'){
 						$('#'+row+'_'+column).html('<img src="assets/images/empty-to-white.gif" alt="white square"/>');	
-						}
+					}
+					
 					else if(old_board[row][column] == '?' && board[row][column] == 'b'){
 						$('#'+row+'_'+column).html('<img src="assets/images/empty-to-black.gif" alt="black square"/>');	
-						}
+					}
+					
 					else if(old_board[row][column] == ' ' && board[row][column] == 'w'){
 						$('#'+row+'_'+column).html('<img src="assets/images/empty-to-white.gif" alt="white square"/>');		
-						}
+					}
+					
 					else if(old_board[row][column] == ' ' && board[row][column] == 'b'){
 						$('#'+row+'_'+column).html('<img src="assets/images/empty-to-black.gif" alt="black square"/>');		
-						}
+					}
+					
 					else if(old_board[row][column] == 'w' && board[row][column] == ' '){
 						$('#'+row+'_'+column).html('<img src="assets/images/empty.gif" alt="empty square"/>');	
-						}
+					}
+					
 					else if(old_board[row][column] == 'b' && board[row][column] == ' '){
 						$('#'+row+'_'+column).html('<img src="assets/images/empty.gif" alt="empty square"/>');	
-						}
+					}
+					
 					else if(old_board[row][column] == 'w' && board[row][column] == 'b'){
 						$('#'+row+'_'+column).html('<img src="assets/images/empty-to-black.gif" alt="black square"/>');	
-						}
+					}
+					
 					else if(old_board[row][column] == 'b' && board[row][column] == 'w'){
 						$('#'+row+'_'+column).html('<img src="assets/images/empty-to-white.gif" alt="white square"/>');	
-						}
+					}
+					
 					else{
 						$('#'+row+'_'+column).html('<img src="assets/images/error.gif" alt="error"/>');	
-						}
-					
-					/* Set up interactivity */
-					$('#'+row+'_'+column).off('click');
-					if(board[row][column] == ' '){
+					}
+				}
+
+				/* Set up interactivity */
+				$('#'+row+'_'+column).off('click');
+				$('#'+row+'_'+column).removeClass('hovered_over');
+
+				if(payload.game.whose_turn === my_color){
 						$('#'+row+'_'+column).addClass('hovered_over');
 						$('#'+row+'_'+column).click(function(r,c){
 							return function(){
@@ -435,13 +447,8 @@ socket.on('game_update',function(payload){
 								socket.emit('play_token',payload);
 							};
 						}(row,column));
-							
-					}
-					else{
-						$('#'+row+'_'+column).removeClass('hovered_over');
-					}
-
 				}
+
 			}
 		}
 		
