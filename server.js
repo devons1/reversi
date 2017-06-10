@@ -709,11 +709,13 @@ io.sockets.on('connection', function (socket) {
 		/* Execute the move */
 		if(color == 'white'){
 			game.board[row][column] = 'w';
+			flip_board('w',row,column,game.board);
 			game.whose_turn = 'black';
 			game.legal_moves = calculate_valid_moves('b',game.board);
 		}
 		else if(color == 'black'){
 			game.board[row][column] = 'b';
+			flip_board('b',row,column,game.board);
 			game.whose_turn = 'white';
 			game.legal_moves = calculate_valid_moves('w',game.board);
 		}
@@ -819,10 +821,6 @@ function valid_move(who, dr, dc, r, c, board){
 		return false;
 	}
 
-	if (board[r+dr][c+dc] != other) {
-		return false;
-	}
-
 	if ( (r+dr+dr < 0) || (r+dr+dr > 7) ) {
 		return false;
 	}
@@ -870,6 +868,48 @@ function calculate_valid_moves(who,board) {
 	return valid;
 }
 
+function flip_line(who,dr,dc,r,c,board){
+	if ( (r+dr < 0) || (r+dr > 7) ) {
+		return false;
+	}
+
+	if ( (c+dc < 0) || (c+dc > 7) ) {
+		return false;
+	}
+
+	if (board[r+dr][c+dc] === ' ') {
+		return false;
+	}
+
+	if (board[r+dr][c+dc] === who) {
+		return true;
+	}
+
+	else{
+		if(flip_line(who,dr,dc,r+dr,c+dc,board)){
+			board[r+dr][c+dc] = who;
+			return true;
+		}
+
+		else{
+			return false;
+		}
+	}
+
+}
+
+function flip_board(who,row,column,board){
+	flip_line(who,-1,-1,row,column,board);
+	flip_line(who,-1,0,row,column,board);
+	flip_line(who,-1,1,row,column,board);
+
+	flip_line(who,0,-1,row,column,board);
+	flip_line(who,0,1,row,column,board);
+
+	flip_line(who,1,-1,row,column,board);
+	flip_line(who,1,0,row,column,board);
+	flip_line(who,1,1,row,column,board);
+}
 
 function send_game_update(socket, game_id, message){
 
