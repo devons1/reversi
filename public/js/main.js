@@ -402,8 +402,8 @@ socket.on('game_update',function(payload){
 	var blacksum = 0;
 	var whitesum = 0;
 	var row,column;
-	for(row = 0; row < 8 ; row++){
-			for(column = 0; column < 8 ; column++){
+	for(row = 0; row < 4 ; row++){
+			for(column = 0; column < 4 ; column++){
 				if(board[row][column] == 'b'){
 				blacksum++;
 				}
