@@ -630,7 +630,7 @@ io.sockets.on('connection', function (socket) {
 		
 		
 		var row = payload.row;
-		if(('undefined' === typeof row) || row < 0 || row > 7) {
+		if(('undefined' === typeof row) || row < 0 || row > 3) {
 			var error_message = 'play_token didn\'t specify a valid row, command aborted';
 			log(error_message);
 			socket.emit('play_token_response',   { 
@@ -641,7 +641,7 @@ io.sockets.on('connection', function (socket) {
 		}
 	
 		var column = payload.column;
-		if(('undefined' === typeof column) || column < 0 || column > 7) {
+		if(('undefined' === typeof column) || column < 0 || column > 3) {
 			var error_message = 'play_token didn\'t specify a valid column, command aborted';
 			log(error_message);
 			socket.emit('play_token_response',   { 
@@ -758,10 +758,6 @@ function create_new_game(){
 						[' ',' ',' ',' '],
 						[' ',' ',' ',' '],
 						[' ',' ',' ',' '],
-						[' ',' ',' ',' '],
-						[' ',' ',' ',' '],
-						[' ',' ',' ',' '],
-						[' ',' ',' ',' '],
 						[' ',' ',' ',' ']
 					];
 	
@@ -835,10 +831,6 @@ function valid_move(who, dr, dc, r, c, board){
 
 function calculate_valid_moves(who,board) {
 	var valid = [
-						[' ',' ',' ',' '],
-						[' ',' ',' ',' '],
-						[' ',' ',' ',' '],
-						[' ',' ',' ',' '],
 						[' ',' ',' ',' '],
 						[' ',' ',' ',' '],
 						[' ',' ',' ',' '],
@@ -992,8 +984,8 @@ function send_game_update(socket, game_id, message){
 	var count = 0;
 	var Black = 0;
 	var White = 0;
-	for(row = 0; row < 8;row++){
-		for(column = 0; column < 8;column++){
+	for(row = 0; row < 4;row++){
+		for(column = 0; column < 4;column++){
 			if(games[game_id].legal_moves[row][column] != ' '){
 			count++;
 			}
