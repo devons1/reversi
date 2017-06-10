@@ -831,8 +831,7 @@ function valid_move(who, dr, dc, r, c, board){
 }
 
 
-/* Rules */
-fucntion calculate_valid_moves(who,board) {
+function calculate_valid_moves(who,board) {
 	var valid = [
 						[' ',' ',' ',' ',' ',' ',' ',' '],
 						[' ',' ',' ',' ',' ',' ',' ',' '],
