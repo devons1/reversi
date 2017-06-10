@@ -755,14 +755,14 @@ function create_new_game(){
 	new_game.whose_turn = 'Black';
 	
 	new_game.board = [
-						[' ',' ',' ',' ',' ',' ',' ',' '],
-						[' ',' ',' ',' ',' ',' ',' ',' '],
-						[' ',' ',' ',' ',' ',' ',' ',' '],
-						[' ',' ',' ','w','b',' ',' ',' '],
-						[' ',' ',' ','b','w',' ',' ',' '],
-						[' ',' ',' ',' ',' ',' ',' ',' '],
-						[' ',' ',' ',' ',' ',' ',' ',' '],
-						[' ',' ',' ',' ',' ',' ',' ',' ']
+						[' ',' ',' ',' '],
+						[' ',' ',' ',' '],
+						[' ',' ',' ',' '],
+						[' ',' ',' ',' '],
+						[' ',' ',' ',' '],
+						[' ',' ',' ',' '],
+						[' ',' ',' ',' '],
+						[' ',' ',' ',' ']
 					];
 	
 	new_game.legal_moves = calculate_valid_moves('b',new_game.board);
@@ -782,11 +782,11 @@ function check_line_match(who,dr,dc,r,c,board){
 		return false;
 	}
 
-	if ( (r+dr < 0) || (r+dr > 7) ) {
+	if ( (r+dr < 0) || (r+dr > 3) ) {
 		return false;
 	}
 
-	if ( (c+dc < 0) || (c+dc > 7) ) {
+	if ( (c+dc < 0) || (c+dc > 3) ) {
 		return false;
 	}
 
@@ -809,11 +809,11 @@ function valid_move(who, dr, dc, r, c, board){
 		return false;
 	}
 
-	if ( (r+dr < 0) || (r+dr > 7) ) {
+	if ( (r+dr < 0) || (r+dr > 3) ) {
 		return false;
 	}
 
-	if ( (c+dc < 0) || (c+dc > 7) ) {
+	if ( (c+dc < 0) || (c+dc > 3) ) {
 		return false;
 	}
 
@@ -821,11 +821,11 @@ function valid_move(who, dr, dc, r, c, board){
 		return false;
 	}
 
-	if ( (r+dr+dr < 0) || (r+dr+dr > 7) ) {
+	if ( (r+dr+dr < 0) || (r+dr+dr > 3) ) {
 		return false;
 	}
 
-	if ( (c+dc+dc < 0) || (c+dc+dc > 7) ) {
+	if ( (c+dc+dc < 0) || (c+dc+dc > 3) ) {
 		return false;
 	}
 
@@ -835,18 +835,18 @@ function valid_move(who, dr, dc, r, c, board){
 
 function calculate_valid_moves(who,board) {
 	var valid = [
-						[' ',' ',' ',' ',' ',' ',' ',' '],
-						[' ',' ',' ',' ',' ',' ',' ',' '],
-						[' ',' ',' ',' ',' ',' ',' ',' '],
-						[' ',' ',' ',' ',' ',' ',' ',' '],
-						[' ',' ',' ',' ',' ',' ',' ',' '],
-						[' ',' ',' ',' ',' ',' ',' ',' '],
-						[' ',' ',' ',' ',' ',' ',' ',' '],
-						[' ',' ',' ',' ',' ',' ',' ',' ']
+						[' ',' ',' ',' '],
+						[' ',' ',' ',' '],
+						[' ',' ',' ',' '],
+						[' ',' ',' ',' '],
+						[' ',' ',' ',' '],
+						[' ',' ',' ',' '],
+						[' ',' ',' ',' '],
+						[' ',' ',' ',' ']
 					];
 
-	for(var row = 0; row < 8;row++){
-		for(var column = 0; column < 8;column++){
+	for(var row = 0; row < 4;row++){
+		for(var column = 0; column < 4;column++){
 			if(board[row][column] === ' '){
 				nw = valid_move(who,-1,-1,row,column,board);
 				nn = valid_move(who,-1,0,row,column,board);
@@ -869,11 +869,11 @@ function calculate_valid_moves(who,board) {
 }
 
 function flip_line(who,dr,dc,r,c,board){
-	if ( (r+dr < 0) || (r+dr > 7) ) {
+	if ( (r+dr < 0) || (r+dr > 3) ) {
 		return false;
 	}
 
-	if ( (c+dc < 0) || (c+dc > 7) ) {
+	if ( (c+dc < 0) || (c+dc > 3) ) {
 		return false;
 	}
 
