@@ -360,10 +360,10 @@ socket.on('game_update',function(payload){
 		
 	/* Update my color */
 	if(socket.id == payload.game.player_white.socket){
-	my_color = 'white';
+	my_color = 'White';
 	}
 	else if(socket.id == payload.game.player_black.socket){
-	my_color = 'black';
+	my_color = 'Bflack';
 	} 
 	else{
 		/* Something weird is going on, like three people playing at once  */
@@ -372,7 +372,7 @@ socket.on('game_update',function(payload){
 		return;
 	}
 	
-	$('#my_color').html('<h3 id="my_color">I am '+my_color+'</h3>');
+	$('#my_color').html('<h3 id="my_color">You are '+my_color+'</h3>');
 	$('#my_color').append('<h4>It is '+payload.game.whose_turn+'\'s turn. Elapsed time <span id="elapsed"></span></h4>');
 
 	clearInterval(interval_timer);
@@ -517,8 +517,9 @@ socket.on('game_over',function(payload){
 	
 	/* Jump to a new page */
 	$('#game_over').html('<h1>Game over!</h1><h2>'+payload.who_won+' won!</h2>');
-	$('#game_over').append('<a href="lobby.html?username='+username+' " class="btn btn-success btn-lg active" role="button" aria-pressed="true">Return to Lobby</a>');
-	
+	$('#game_over').append('<a href="lobby.html?username='+username+' " class="btn btn-success btn-lg active" role="button" aria-pressed="true">Return to Lobby</a><br>');
+
+			
 });
 
 
