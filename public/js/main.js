@@ -253,7 +253,7 @@ socket.on('send_message_response',function(payload){
 		return;
 	}
 
-	var newHTML = '<p><font color="sky blue"><b>'+payload.username+':</b></font> <font color="White">'+payload.message+'</font></p>';
+	var newHTML = '<p><font color="sky blue"><b>'+payload.username+':</b></font> <font color="white">'+payload.message+'</font></p>';
 	var newNode = $(newHTML);
 	newNode.hide();
 	$('#messages').prepend(newNode);
@@ -327,10 +327,14 @@ $(function(){
 
 
 var old_board = [
-					['?','?','?','?'],
-					['?','?','?','?'],
-					['?','?','?','?'],
-					['?','?','?','?'],
+					['?','?','?','?','?','?','?','?'],
+					['?','?','?','?','?','?','?','?'],
+					['?','?','?','?','?','?','?','?'],
+					['?','?','?','?','?','?','?','?'],
+					['?','?','?','?','?','?','?','?'],
+					['?','?','?','?','?','?','?','?'],
+					['?','?','?','?','?','?','?','?'],
+					['?','?','?','?','?','?','?','?']
 				]
 
 
@@ -355,11 +359,11 @@ socket.on('game_update',function(payload){
 		}
 		
 	/* Update my color */
-	if(socket.id == payload.game.player_White.socket){
-	my_color = 'White';
+	if(socket.id == payload.game.player_white.socket){
+	my_color = 'white';
 	}
-	else if(socket.id == payload.game.player_Black.socket){
-	my_color = 'Black';
+	else if(socket.id == payload.game.player_black.socket){
+	my_color = 'black';
 	} 
 	else{
 		/* Something weird is going on, like three people playing at once  */
@@ -368,7 +372,7 @@ socket.on('game_update',function(payload){
 		return;
 	}
 	
-	$('#my_color').html('<h3 id="my_color">You are '+my_color+'</h3>');
+	$('#my_color').html('<h3 id="my_color">I am '+my_color+'</h3>');
 	$('#my_color').append('<h4>It is '+payload.game.whose_turn+'\'s turn. Elapsed time <span id="elapsed"></span></h4>');
 
 	clearInterval(interval_timer);
@@ -395,16 +399,16 @@ socket.on('game_update',function(payload){
 
 	/* Animate changes to the board  */
 	
-	var Blacksum = 0;
-	var Whitesum = 0;
+	var blacksum = 0;
+	var whitesum = 0;
 	var row,column;
-	for(row = 0; row < 4 ; row++){
-			for(column = 0; column < 4 ; column++){
+	for(row = 0; row < 8 ; row++){
+			for(column = 0; column < 8 ; column++){
 				if(board[row][column] == 'b'){
-				Blacksum++;
+				blacksum++;
 				}
 				if(board[row][column] == 'w'){
-				Whitesum++;
+				whitesum++;
 				}
 
 				/* If a board space has changed */
@@ -414,19 +418,19 @@ socket.on('game_update',function(payload){
 					}
 					
 					else if(old_board[row][column] == '?' && board[row][column] == 'w'){
-						$('#'+row+'_'+column).html('<img src="assets/images/empty-to-white.gif" alt="White square"/>');	
+						$('#'+row+'_'+column).html('<img src="assets/images/empty-to-white.gif" alt="white square"/>');	
 					}
 					
 					else if(old_board[row][column] == '?' && board[row][column] == 'b'){
-						$('#'+row+'_'+column).html('<img src="assets/images/empty-to-black.gif" alt="Black square"/>');	
+						$('#'+row+'_'+column).html('<img src="assets/images/empty-to-black.gif" alt="black square"/>');	
 					}
 					
 					else if(old_board[row][column] == ' ' && board[row][column] == 'w'){
-						$('#'+row+'_'+column).html('<img src="assets/images/empty-to-white.gif" alt="White square"/>');		
+						$('#'+row+'_'+column).html('<img src="assets/images/empty-to-white.gif" alt="white square"/>');		
 					}
 					
 					else if(old_board[row][column] == ' ' && board[row][column] == 'b'){
-						$('#'+row+'_'+column).html('<img src="assets/images/empty-to-black.gif" alt="Black square"/>');		
+						$('#'+row+'_'+column).html('<img src="assets/images/empty-to-black.gif" alt="black square"/>');		
 					}
 					
 					else if(old_board[row][column] == 'w' && board[row][column] == ' '){
@@ -438,11 +442,11 @@ socket.on('game_update',function(payload){
 					}
 					
 					else if(old_board[row][column] == 'w' && board[row][column] == 'b'){
-						$('#'+row+'_'+column).html('<img src="assets/images/empty-to-black.gif" alt="Black square"/>');	
+						$('#'+row+'_'+column).html('<img src="assets/images/empty-to-black.gif" alt="black square"/>');	
 					}
 					
 					else if(old_board[row][column] == 'b' && board[row][column] == 'w'){
-						$('#'+row+'_'+column).html('<img src="assets/images/empty-to-white.gif" alt="White square"/>');	
+						$('#'+row+'_'+column).html('<img src="assets/images/empty-to-white.gif" alt="white square"/>');	
 					}
 					
 					else{
@@ -455,8 +459,7 @@ socket.on('game_update',function(payload){
 				$('#'+row+'_'+column).removeClass('hovered_over');
 
 				if(payload.game.whose_turn === my_color){
-
-						if(payload.game.legal_moves[row][column] === my_color.substr(0,1)){ 
+						if(payload.game.legal_moves[row][column] === my_color.substr(0,1)){
 							$('#'+row+'_'+column).addClass('hovered_over');
 							$('#'+row+'_'+column).click(function(r,c){
 								return function(){
@@ -468,9 +471,7 @@ socket.on('game_update',function(payload){
 									socket.emit('play_token',payload);
 								};
 							}(row,column));
-
 						}
-
 		
 				}
 				
@@ -478,8 +479,8 @@ socket.on('game_update',function(payload){
 			}
 		}
 		
-		$('#Blacksum').html(Blacksum);
-		$('#Whitesum').html(Whitesum);
+		$('#blacksum').html(blacksum);
+		$('#whitesum').html(whitesum);
 
 		old_board = board;
 
@@ -513,8 +514,7 @@ socket.on('game_over',function(payload){
 	/* Jump to a new page */
 	$('#game_over').html('<h1>Game over!</h1><h2>'+payload.who_won+' won!</h2>');
 	$('#game_over').append('<a href="lobby.html?username='+username+' " class="btn btn-success btn-lg active" role="button" aria-pressed="true">Return to Lobby</a>');
-	$('#game_over').html('<br>');
-			
+	
 });
 
 
