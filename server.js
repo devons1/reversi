@@ -752,7 +752,7 @@ function create_new_game(){
 	var d = new Date();
 	new_game.last_move_time = d.getTime();
 	
-	new_game.whose_turn = 'black';
+	new_game.whose_turn = 'Black';
 	
 	new_game.board = [
 						[' ',' ',' ',' ',' ',' ',' ',' '],
@@ -1011,11 +1011,11 @@ function send_game_update(socket, game_id, message){
 		/*  Send a game over message  */
 		var winner = 'tie game';
 		if(black > white){
-			winner = 'black';
+			winner = 'Black';
 		}
 
 		if(white > black){
-			winner = 'white';
+			winner = 'White';
 		}
 
 		var success_data = {

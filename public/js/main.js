@@ -363,7 +363,7 @@ socket.on('game_update',function(payload){
 	my_color = 'White';
 	}
 	else if(socket.id == payload.game.player_black.socket){
-	my_color = 'Bflack';
+	my_color = 'Black';
 	} 
 	else{
 		/* Something weird is going on, like three people playing at once  */
