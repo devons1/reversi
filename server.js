@@ -561,8 +561,8 @@ io.sockets.on('connection', function (socket) {
 	/* play_token command */
 	/* payload:
 	   {	
-	   		'row': 0-3 the row to play the token on
-	   		'column': 0-3 the column to play the token on
+	   		'row': 0-7 the row to play the token on
+	   		'column': 0-7 the column to play the token on
 	   		'color': 'white or black'
 	  		
 	 	}
@@ -630,7 +630,7 @@ io.sockets.on('connection', function (socket) {
 		
 		
 		var row = payload.row;
-		if(('undefined' === typeof row) || row < 0 || row > 3) {
+		if(('undefined' === typeof row) || row < 0 || row > 7) {
 			var error_message = 'play_token didn\'t specify a valid row, command aborted';
 			log(error_message);
 			socket.emit('play_token_response',   { 
@@ -641,7 +641,7 @@ io.sockets.on('connection', function (socket) {
 		}
 	
 		var column = payload.column;
-		if(('undefined' === typeof column) || column < 0 || column > 3) {
+		if(('undefined' === typeof column) || column < 0 || column > 7) {
 			var error_message = 'play_token didn\'t specify a valid column, command aborted';
 			log(error_message);
 			socket.emit('play_token_response',   { 
@@ -778,11 +778,11 @@ function check_line_match(who,dr,dc,r,c,board){
 		return false;
 	}
 
-	if ( (r+dr < 0) || (r+dr > 3) ) {
+	if ( (r+dr < 0) || (r+dr > 7) ) {
 		return false;
 	}
 
-	if ( (c+dc < 0) || (c+dc > 3) ) {
+	if ( (c+dc < 0) || (c+dc > 7) ) {
 		return false;
 	}
 
@@ -805,11 +805,11 @@ function valid_move(who, dr, dc, r, c, board){
 		return false;
 	}
 
-	if ( (r+dr < 0) || (r+dr > 3) ) {
+	if ( (r+dr < 0) || (r+dr > 7) ) {
 		return false;
 	}
 
-	if ( (c+dc < 0) || (c+dc > 3) ) {
+	if ( (c+dc < 0) || (c+dc > 7) ) {
 		return false;
 	}
 
@@ -817,11 +817,11 @@ function valid_move(who, dr, dc, r, c, board){
 		return false;
 	}
 
-	if ( (r+dr+dr < 0) || (r+dr+dr > 3) ) {
+	if ( (r+dr+dr < 0) || (r+dr+dr > 7) ) {
 		return false;
 	}
 
-	if ( (c+dc+dc < 0) || (c+dc+dc > 3) ) {
+	if ( (c+dc+dc < 0) || (c+dc+dc > 7) ) {
 		return false;
 	}
 
@@ -837,8 +837,8 @@ function calculate_valid_moves(who,board) {
 						[' ',' ',' ',' ']
 					];
 
-	for(var row = 0; row < 4;row++){
-		for(var column = 0; column < 4;column++){
+	for(var row = 0; row < 8;row++){
+		for(var column = 0; column < 8;column++){
 			if(board[row][column] === ' '){
 				nw = valid_move(who,-1,-1,row,column,board);
 				nn = valid_move(who,-1,0,row,column,board);
@@ -861,11 +861,11 @@ function calculate_valid_moves(who,board) {
 }
 
 function flip_line(who,dr,dc,r,c,board){
-	if ( (r+dr < 0) || (r+dr > 3) ) {
+	if ( (r+dr < 0) || (r+dr > 7) ) {
 		return false;
 	}
 
-	if ( (c+dc < 0) || (c+dc > 3) ) {
+	if ( (c+dc < 0) || (c+dc > 7) ) {
 		return false;
 	}
 
@@ -984,8 +984,8 @@ function send_game_update(socket, game_id, message){
 	var count = 0;
 	var black = 0;
 	var white = 0;
-	for(row = 0; row < 4;row++){
-		for(column = 0; column < 4;column++){
+	for(row = 0; row < 8;row++){
+		for(column = 0; column < 8;column++){
 			if(games[game_id].legal_moves[row][column] != ' '){
 			count++;
 			}
