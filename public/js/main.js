@@ -402,8 +402,8 @@ socket.on('game_update',function(payload){
 	var blacksum = 0;
 	var whitesum = 0;
 	var row,column;
-	for(row = 0; row < 4 ; row++){
-			for(column = 0; column < 4 ; column++){
+	for(row = 0; row < 8 ; row++){
+			for(column = 0; column < 8 ; column++){
 				if(board[row][column] == 'b'){
 				blacksum++;
 				}
@@ -459,8 +459,7 @@ socket.on('game_update',function(payload){
 				$('#'+row+'_'+column).removeClass('hovered_over');
 
 				if(payload.game.whose_turn === my_color){
-						
-						if(payload.game.legal_moves[row][column] === my_color.substr(0,1)){
+						//if(payload.game.legal_moves[row][column] === my_color.substr(0,1)){
 							$('#'+row+'_'+column).addClass('hovered_over');
 							$('#'+row+'_'+column).click(function(r,c){
 								return function(){
@@ -472,7 +471,7 @@ socket.on('game_update',function(payload){
 									socket.emit('play_token',payload);
 								};
 							}(row,column));
-						}
+						//}
 		
 				}
 				
