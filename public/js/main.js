@@ -316,7 +316,7 @@ $(function(){
 	console.log('*** Client Log Message: \'join_room\' payload: '+JSON.stringify(payload));
 	socket.emit('join_room',payload);
 
-	$('#quit').append('<a href="lobby.html?username='+username+' " class="btn btn-lg btn-outline-danger" role="button" aria-pressed="true">Quit</a>');
+	$('#quit').append('<a href="lobby.html?username='+username+' " class="btn btn-outline-danger" role="button" aria-pressed="true">Quit</a>');
 
 
 });
@@ -513,7 +513,7 @@ socket.on('game_over',function(payload){
 	
 	/* Jump to a new page */
 	$('#game_over').html('<h1>Game over!</h1><h2>'+payload.who_won+' won!</h2>');
-	$('#game_over').append('<a href="lobby.html?username='+username+' " class="btn btn-lg btn-outline-success" role="button" aria-pressed="true">Return to Lobby</a>');
+	$('#game_over').append('<a href="lobby.html?username='+username+' " class="btn btn-outline-success" role="button" aria-pressed="true">Return to Lobby</a>');
 	
 });
 
